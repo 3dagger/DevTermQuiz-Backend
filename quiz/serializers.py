@@ -8,11 +8,8 @@ from quiz.models import Quiz
 class QuizSerializer(serializers.ModelSerializer):
     class Meta:
         model = Quiz
-        fields = ('title', 'body', 'answer', 'subtitle')
-
-    # class Meta:
-    #     model = User
-    #     fields = ('id', 'username', 'email')
+        # fields = ('title', 'body', 'answer', 'subtitle')
+        fields = '__all__'
 
 
 class UserSerializer(serializers.HyperlinkedModelSerializer):
