@@ -1,9 +1,13 @@
 import random
 
+from django.contrib.auth.models import User, Group
+from django.template.context_processors import request
+from rest_framework import permissions, viewsets
+
 from .models import Quiz
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
-from .serializers import QuizSerializer
+from .serializers import QuizSerializer, UserSerializer, GroupSerializer
 
 
 # Create your views here.
@@ -18,6 +22,18 @@ def randomQuiz(request, id):
     randomQuizs = random.sample(list(totalQuizs), id)
     serializer = QuizSerializer(randomQuizs, many=True)
     return Response(serializer.data)
+
+
+class UserViewSet(viewsets.ModelViewSet):
+    queryset = User.objects.all().order_by('-date_joined')
+    serializer_class = UserSerializer
+    permission_classes = [permissions.IsAuthenticated]
+
+
+class GroupViewSet(viewsets.ModelViewSet):
+    queryset = Group.objects.all()
+    serializer_class = GroupSerializer
+    permission_classes = [permissions.IsAuthenticated]
 
 # class PostView(viewsets.ModelViewSet):
 #     # authentication_classes = (SessionAuthentication, BasicAuthentication)
