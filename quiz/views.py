@@ -20,12 +20,27 @@ def helloAPI(request):
 def randomQuiz(request, id):
     totalQuizs = Quiz.objects.all()
     randomQuizs = random.sample(list(totalQuizs), id)
+    # print(randomQuizs)
+    aa = 'quiz'
+    new_dict = {aa: randomQuizs}
+    print("-1 :: " + str(Quiz.objects.all()))
+    print("0 :: " + str(Quiz.objects.filter()))
+    print("1 :: " + str(new_dict))
+    print("2 :: " + str(randomQuizs))
+
+
     serializer = QuizSerializer(randomQuizs, many=True)
+    print("3 :: " + str(serializer))
+    print("4 :: " + str(QuizSerializer(randomQuizs, many=True)))
+    print("5 :: " + str(Quiz))
+    print("6 :: " + str(serializer.data))
+
     return Response(serializer.data)
 
 
 class UserViewSet(viewsets.ModelViewSet):
     queryset = User.objects.all().order_by('-date_joined')
+    # print(queryset)
     serializer_class = UserSerializer
     permission_classes = [permissions.IsAuthenticated]
 
