@@ -4,4 +4,3 @@ from .models import Quiz, Sample2
 # Register your models here.
 admin.site.register(Quiz)
 admin.site.register(Sample2)
-# admin.site.register(Post)

@@ -40,20 +40,14 @@ def randomQuiz(request, id):
 
 
 class QuizViewSet(viewsets.ModelViewSet):
-    queryset = Quiz.objects.all()
+    queryset = Quiz.objects.filter().order_by('?')[:1]
+    print(Quiz.objects.all())
     serializer_class = QuizSerializer
-
-# class QuizViewSet(viewsets.ViewSet):
-#
-#     def list(self, request, id):
-#         queryset = Quiz.objects.all()
-#         randomQuiz = random.sample(list(queryset), id)
-#         serializer = QuizSerializer(randomQuiz, many=True)
-#         return Response(serializer.data)
 
 
 class helloViewSet(viewsets.ModelViewSet):
     queryset = Sample2.objects.all()
+    print("HelloViewSet")
     serializer_class = SampleSerializer
 
 
@@ -67,16 +61,3 @@ class GroupViewSet(viewsets.ModelViewSet):
     queryset = Group.objects.all()
     serializer_class = GroupSerializer
     permission_classes = [permissions.IsAuthenticated]
-
-# class PostView(viewsets.ModelViewSet):
-#     # authentication_classes = (SessionAuthentication, BasicAuthentication)
-#     # permission_classes = (IsAuthenticated,)
-#     authentication_classes = [SessionAuthentication, BasicAuthentication]
-#     # permission_classes = [IsAuthenticated]
-#
-#     queryset = Post.objects.all()
-#     serializer_class = PostSerializer
-#     # permission_classes = (permissions.IsAuthenticated,)
-#
-#     def perform_create(self, serializer):
-#         serializer.save(user=self.request.user)
